@@ -1,0 +1,14 @@
+@startuml
+title Order Entity - Státuszdiagram
+
+[*] --> Felvéve : új rendelés létrehozása
+
+Felvéve --> Úton : zombi hozzárendelve, kézbesítés elkezdve
+Úton --> Kézbesítve : sikeres kézbesítés
+Úton --> Megrágva : zombi megharapta a csomagot
+Úton --> Elveszett : zombi eltűnt vagy nem érkezett meg
+
+Megrágva --> [*]
+Elveszett --> [*]
+Kézbesítve --> [*]
+@enduml

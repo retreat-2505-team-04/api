@@ -1,0 +1,18 @@
+@startuml
+title Megrágási kockázatelemzés
+
+actor Felhasználó
+participant Client
+participant API
+database DB
+participant "Risk Engine (Flow)" as Risk
+participant "Zombi adatmodell" as Zombi
+
+Felhasználó -> Client : Lekéri a kockázatot
+Client -> API : GET /orders/{id}/risk
+API -> DB : Lekérdezi rendelést + zombi ID
+API -> DB : Lekéri zombi múltbeli harapásait, éhségét
+API -> Risk : Prompt a zombi profilról és csomag típusáról
+Risk --> API : risk_level + explanation
+API --> Client : 200 OK + kockázat info
+@enduml

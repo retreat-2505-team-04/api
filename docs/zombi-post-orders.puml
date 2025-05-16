@@ -1,0 +1,16 @@
+@startuml
+title Rendelés létrehozása
+
+actor Felhasználó
+participant "Frontend / Postman" as Client
+participant "REST API Backend" as API
+database "PostgreSQL" as DB
+participant "Eseménynapló" as Log
+
+Felhasználó -> Client : Kitölti a rendelést
+Client -> API : POST /orders
+API -> DB : Insert into orders
+API -> Log : Rögzíti: "Felvéve" státusz
+Log -> DB : Insert into eventlog
+API --> Client : 201 Created + Order ID
+@enduml

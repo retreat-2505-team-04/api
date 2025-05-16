@@ -1,0 +1,18 @@
+@startuml
+title Zombi hozzárendelése rendeléshez
+
+actor Rendszer
+participant API
+database DB
+participant "Zombi Orchestrator (Flow)" as Flow
+participant "Eseménynapló" as Log
+
+Rendszer -> API : POST /orders/{id}/assign-zombie
+API -> DB : Lekérdezi rendelést és zombikat
+API -> Flow : Prompt: Legalkalmasabb zombi kiválasztása
+Flow --> API : Zombi ID + suitability_score
+API -> DB : Update order.assigned_zombie_id
+API -> Log : Rögzíti: "Zombi hozzárendelve"
+Log -> DB : Insert into eventlog
+API --> Rendszer : 200 OK + Zombi adatok
+@enduml
