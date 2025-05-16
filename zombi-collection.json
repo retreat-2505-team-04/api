@@ -1,0 +1,89 @@
+{
+  "info": {
+    "name": "AgyKurier API Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "a1b2c3d4-e5f6-7890-abcd-1234567890ef"
+  },
+  "item": [
+    {
+      "name": "Létrehozás - Új rendelés",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sender\": \"Zombi Bunker A\",\n  \"recipient\": \"Túlélő Zóna X\",\n  \"description\": \"VIP agylekvár\",\n  \"datetime\": \"2025-05-16T12:00:00Z\"\n}"
+        },
+        "url": {
+          "raw": "http://team-4.retreat.alerant.hu/api/orders",
+          "protocol": "http",
+          "host": ["team-4", "retreat", "alerant", "hu"],
+          "path": ["api", "orders"]
+        }
+      }
+    },
+    {
+      "name": "Státusz lekérdezése - Rendelés ID alapján",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://team-4.retreat.alerant.hu/api/orders/{{orderId}}",
+          "protocol": "http",
+          "host": ["team-4", "retreat", "alerant", "hu"],
+          "path": ["api", "orders", "{{orderId}}"]
+        }
+      }
+    },
+    {
+      "name": "Státusz frissítése",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"Megrágva\",\n  \"description\": \"Zombi sajnos nem bírta ki.\"\n}"
+        },
+        "url": {
+          "raw": "http://team-4.retreat.alerant.hu/api/orders/{{orderId}}/status",
+          "protocol": "http",
+          "host": ["team-4", "retreat", "alerant", "hu"],
+          "path": ["api", "orders", "{{orderId}}", "status"]
+        }
+      }
+    },
+    {
+      "name": "Zombi hozzárendelése rendeléshez",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "http://team-4.retreat.alerant.hu/api/orders/{{orderId}}/assign-zombie",
+          "protocol": "http",
+          "host": ["team-4", "retreat", "alerant", "hu"],
+          "path": ["api", "orders", "{{orderId}}", "assign-zombie"]
+        }
+      }
+    },
+    {
+      "name": "Kockázatelemzés lekérdezése",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://team-4.retreat.alerant.hu/api/orders/{{orderId}}/risk",
+          "protocol": "http",
+          "host": ["team-4", "retreat", "alerant", "hu"],
+          "path": ["api", "orders", "{{orderId}}", "risk"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "orderId",
+      "value": "REPLACE_WITH_VALID_ID"
+    }
+  ]
+}
